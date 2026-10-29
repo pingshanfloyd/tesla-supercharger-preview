@@ -172,6 +172,16 @@ body {
 .detail-expand-content h4 { color: #fff; font-size: 15px; margin-bottom: 10px; }
 .detail-expand-content .detail-field { margin-bottom: 8px; font-size: 13px; color: #c0c0d0; line-height: 1.6; }
 .detail-expand-content .detail-label { color: #6a6a8a; margin-right: 8px; }
+.detail-expand-content .version-block { margin-top: 14px; padding-top: 12px; border-top: 1px solid #1e1e2e; }
+.detail-expand-content .version-title { color: #6a6a8a; font-size: 12px; margin-bottom: 9px; letter-spacing: .3px; }
+.detail-expand-content .version-row { display: flex; align-items: center; gap: 10px; font-size: 13px; margin-bottom: 7px; color: #c0c0d0; }
+.detail-expand-content .vlabel { width: 32px; font-weight: 600; color: #8a8aa8; font-variant-numeric: tabular-nums; }
+.detail-expand-content .vnum { width: 78px; text-align: right; font-variant-numeric: tabular-nums; }
+.detail-expand-content .vbar { flex: 1; max-width: 190px; height: 6px; background: #1a1a26; border-radius: 3px; overflow: hidden; }
+.detail-expand-content .vbar span { display: block; height: 100%; border-radius: 3px; }
+.detail-expand-content .vshare { width: 52px; text-align: right; color: #8a8aa8; font-size: 12px; font-variant-numeric: tabular-nums; }
+.detail-expand-content .version-note { color: #55556a; font-size: 11.5px; margin-top: 5px; }
+.detail-expand-content .plug-field { margin-top: 12px; }
 .search-bar { margin-bottom: 24px; display: flex; justify-content: center; }
 .search-input { width: 100%; max-width: 480px; padding: 12px 20px 12px 44px; background: #141420; border: 1px solid #1e1e30; border-radius: 12px; color: #fff; font-size: 15px; outline: none; transition: border-color 0.2s, box-shadow 0.2s; }
 .search-input:focus { border-color: #54a0ff; box-shadow: 0 0 0 3px rgba(84, 160, 255, 0.15); }
@@ -352,6 +362,13 @@ body {
 [data-theme="light"] .detail-expand-content h4 { color: #1a1a2e; }
 [data-theme="light"] .detail-expand-content .detail-field { color: #374151; }
 [data-theme="light"] .detail-expand-content .detail-label { color: #9ca3af; }
+[data-theme="light"] .detail-expand-content .version-block { border-top-color: #e5e7eb; }
+[data-theme="light"] .detail-expand-content .version-title { color: #9ca3af; }
+[data-theme="light"] .detail-expand-content .version-row { color: #374151; }
+[data-theme="light"] .detail-expand-content .vlabel { color: #6b7280; }
+[data-theme="light"] .detail-expand-content .vbar { background: #e5e7eb; }
+[data-theme="light"] .detail-expand-content .vshare { color: #6b7280; }
+[data-theme="light"] .detail-expand-content .version-note { color: #9ca3af; }
 [data-theme="light"] .sub-tooltip { background: #fff; border-color: #e0e4ea; color: #374151; box-shadow: 0 8px 32px rgba(0,0,0,0.1); }
 [data-theme="light"] .sub-tooltip-title { color: #6b7280; }
 [data-theme="light"] .sub-tooltip li::before { color: #c0c4cc; }
@@ -390,21 +407,85 @@ const REPORT_DATA = {
           "open": 3197,
           "total": 4291,
           "openStalls": 37532,
-          "totalStalls": 49428
+          "totalStalls": 49428,
+          "stallByVersion": {
+            "v2": {
+              "sites": 0,
+              "stalls": 0
+            },
+            "v3": {
+              "sites": 1451,
+              "stalls": 17231
+            },
+            "v4": {
+              "sites": 1439,
+              "stalls": 20289
+            }
+          },
+          "versionMixed": 36,
+          "versionUnknown": 343,
+          "plugTypes": {
+            "nacs": 2854,
+            "ccs1": 422,
+            "multi": 422,
+            "other": 1
+          }
         },
         {
           "name": "加拿大",
           "open": 256,
           "total": 375,
           "openStalls": 2552,
-          "totalStalls": 3758
+          "totalStalls": 3758,
+          "stallByVersion": {
+            "v2": {
+              "sites": 0,
+              "stalls": 0
+            },
+            "v3": {
+              "sites": 151,
+              "stalls": 1428
+            },
+            "v4": {
+              "sites": 88,
+              "stalls": 1108
+            }
+          },
+          "versionMixed": 0,
+          "versionUnknown": 17,
+          "plugTypes": {
+            "nacs": 239,
+            "ccs1": 4,
+            "multi": 4,
+            "other": 1
+          }
         },
         {
           "name": "墨西哥",
           "open": 28,
           "total": 50,
           "openStalls": 108,
-          "totalStalls": 214
+          "totalStalls": 214,
+          "stallByVersion": {
+            "v2": {
+              "sites": 0,
+              "stalls": 0
+            },
+            "v3": {
+              "sites": 20,
+              "stalls": 92
+            },
+            "v4": {
+              "sites": 0,
+              "stalls": 0
+            }
+          },
+          "versionMixed": 0,
+          "versionUnknown": 8,
+          "plugTypes": {
+            "nacs": 20,
+            "tpc": 4
+          }
         },
         {
           "name": "智利",
@@ -438,203 +519,792 @@ const REPORT_DATA = {
           "open": 152,
           "total": 152,
           "openStalls": 2063,
-          "totalStalls": 2063
+          "totalStalls": 2063,
+          "stallByVersion": {
+            "v2": {
+              "sites": 4,
+              "stalls": 54
+            },
+            "v3": {
+              "sites": 48,
+              "stalls": 686
+            },
+            "v4": {
+              "sites": 101,
+              "stalls": 1323
+            }
+          },
+          "versionMixed": 13,
+          "versionUnknown": 12,
+          "plugTypes": {
+            "ccs2": 140,
+            "type2": 4,
+            "multi": 4
+          }
         },
         {
           "name": "奥地利",
           "open": 67,
           "total": 67,
           "openStalls": 693,
-          "totalStalls": 693
+          "totalStalls": 693,
+          "stallByVersion": {
+            "v2": {
+              "sites": 7,
+              "stalls": 79
+            },
+            "v3": {
+              "sites": 0,
+              "stalls": 0
+            },
+            "v4": {
+              "sites": 58,
+              "stalls": 614
+            }
+          },
+          "versionMixed": 0,
+          "versionUnknown": 2,
+          "plugTypes": {
+            "ccs2": 65,
+            "type2": 7,
+            "multi": 7
+          }
         },
         {
           "name": "荷兰",
           "open": 58,
           "total": 58,
           "openStalls": 992,
-          "totalStalls": 992
+          "totalStalls": 992,
+          "stallByVersion": {
+            "v2": {
+              "sites": 21,
+              "stalls": 322
+            },
+            "v3": {
+              "sites": 24,
+              "stalls": 356
+            },
+            "v4": {
+              "sites": 23,
+              "stalls": 314
+            }
+          },
+          "versionMixed": 10,
+          "versionUnknown": 0,
+          "plugTypes": {
+            "ccs2": 58,
+            "type2": 21,
+            "multi": 21
+          }
         },
         {
           "name": "土耳其",
           "open": 54,
           "total": 54,
           "openStalls": 406,
-          "totalStalls": 406
+          "totalStalls": 406,
+          "stallByVersion": {
+            "v2": {
+              "sites": 0,
+              "stalls": 0
+            },
+            "v3": {
+              "sites": 10,
+              "stalls": 78
+            },
+            "v4": {
+              "sites": 34,
+              "stalls": 328
+            }
+          },
+          "versionMixed": 3,
+          "versionUnknown": 13,
+          "plugTypes": {
+            "ccs2": 41
+          }
         },
         {
           "name": "匈牙利",
           "open": 31,
           "total": 31,
           "openStalls": 262,
-          "totalStalls": 262
+          "totalStalls": 262,
+          "stallByVersion": {
+            "v2": {
+              "sites": 5,
+              "stalls": 36
+            },
+            "v3": {
+              "sites": 6,
+              "stalls": 66
+            },
+            "v4": {
+              "sites": 15,
+              "stalls": 160
+            }
+          },
+          "versionMixed": 2,
+          "versionUnknown": 7,
+          "plugTypes": {
+            "ccs2": 24,
+            "type2": 5,
+            "multi": 5
+          }
         },
         {
           "name": "罗马尼亚",
           "open": 28,
           "total": 28,
           "openStalls": 230,
-          "totalStalls": 230
+          "totalStalls": 230,
+          "stallByVersion": {
+            "v2": {
+              "sites": 0,
+              "stalls": 0
+            },
+            "v3": {
+              "sites": 8,
+              "stalls": 62
+            },
+            "v4": {
+              "sites": 17,
+              "stalls": 168
+            }
+          },
+          "versionMixed": 0,
+          "versionUnknown": 3,
+          "plugTypes": {
+            "ccs2": 25
+          }
         },
         {
           "name": "冰岛",
           "open": 23,
           "total": 23,
           "openStalls": 191,
-          "totalStalls": 191
+          "totalStalls": 191,
+          "stallByVersion": {
+            "v2": {
+              "sites": 0,
+              "stalls": 0
+            },
+            "v3": {
+              "sites": 6,
+              "stalls": 34
+            },
+            "v4": {
+              "sites": 19,
+              "stalls": 157
+            }
+          },
+          "versionMixed": 3,
+          "versionUnknown": 1,
+          "plugTypes": {
+            "ccs2": 22
+          }
         },
         {
           "name": "葡萄牙",
           "open": 20,
           "total": 20,
           "openStalls": 260,
-          "totalStalls": 260
+          "totalStalls": 260,
+          "stallByVersion": {
+            "v2": {
+              "sites": 1,
+              "stalls": 8
+            },
+            "v3": {
+              "sites": 0,
+              "stalls": 0
+            },
+            "v4": {
+              "sites": 14,
+              "stalls": 252
+            }
+          },
+          "versionMixed": 0,
+          "versionUnknown": 5,
+          "plugTypes": {
+            "ccs2": 15,
+            "type2": 1,
+            "multi": 1
+          }
         },
         {
           "name": "捷克",
           "open": 19,
           "total": 19,
           "openStalls": 204,
-          "totalStalls": 204
+          "totalStalls": 204,
+          "stallByVersion": {
+            "v2": {
+              "sites": 2,
+              "stalls": 12
+            },
+            "v3": {
+              "sites": 0,
+              "stalls": 0
+            },
+            "v4": {
+              "sites": 16,
+              "stalls": 192
+            }
+          },
+          "versionMixed": 0,
+          "versionUnknown": 1,
+          "plugTypes": {
+            "ccs2": 18,
+            "type2": 2,
+            "multi": 2
+          }
         },
         {
           "name": "斯洛伐克",
           "open": 10,
           "total": 10,
           "openStalls": 66,
-          "totalStalls": 66
+          "totalStalls": 66,
+          "stallByVersion": {
+            "v2": {
+              "sites": 3,
+              "stalls": 14
+            },
+            "v3": {
+              "sites": 1,
+              "stalls": 8
+            },
+            "v4": {
+              "sites": 4,
+              "stalls": 44
+            }
+          },
+          "versionMixed": 0,
+          "versionUnknown": 2,
+          "plugTypes": {
+            "ccs2": 8,
+            "type2": 3,
+            "multi": 3
+          }
         },
         {
           "name": "爱沙尼亚",
           "open": 4,
           "total": 4,
           "openStalls": 23,
-          "totalStalls": 23
+          "totalStalls": 23,
+          "stallByVersion": {
+            "v2": {
+              "sites": 0,
+              "stalls": 0
+            },
+            "v3": {
+              "sites": 0,
+              "stalls": 0
+            },
+            "v4": {
+              "sites": 3,
+              "stalls": 23
+            }
+          },
+          "versionMixed": 0,
+          "versionUnknown": 1,
+          "plugTypes": {
+            "ccs2": 3
+          }
         },
         {
           "name": "立陶宛",
           "open": 3,
           "total": 3,
           "openStalls": 28,
-          "totalStalls": 28
+          "totalStalls": 28,
+          "stallByVersion": {
+            "v2": {
+              "sites": 0,
+              "stalls": 0
+            },
+            "v3": {
+              "sites": 0,
+              "stalls": 0
+            },
+            "v4": {
+              "sites": 3,
+              "stalls": 28
+            }
+          },
+          "versionMixed": 0,
+          "versionUnknown": 0,
+          "plugTypes": {
+            "ccs2": 3
+          }
         },
         {
           "name": "卢森堡",
           "open": 1,
           "total": 1,
           "openStalls": 16,
-          "totalStalls": 16
+          "totalStalls": 16,
+          "stallByVersion": {
+            "v2": {
+              "sites": 0,
+              "stalls": 0
+            },
+            "v3": {
+              "sites": 0,
+              "stalls": 0
+            },
+            "v4": {
+              "sites": 1,
+              "stalls": 16
+            }
+          },
+          "versionMixed": 0,
+          "versionUnknown": 0,
+          "plugTypes": {
+            "ccs2": 1
+          }
         },
         {
           "name": "德国",
           "open": 416,
           "total": 417,
           "openStalls": 4837,
-          "totalStalls": 4849
+          "totalStalls": 4849,
+          "stallByVersion": {
+            "v2": {
+              "sites": 0,
+              "stalls": 0
+            },
+            "v3": {
+              "sites": 131,
+              "stalls": 1813
+            },
+            "v4": {
+              "sites": 299,
+              "stalls": 3024
+            }
+          },
+          "versionMixed": 25,
+          "versionUnknown": 11,
+          "plugTypes": {
+            "ccs2": 405
+          }
         },
         {
           "name": "挪威",
           "open": 199,
           "total": 202,
           "openStalls": 3077,
-          "totalStalls": 3133
+          "totalStalls": 3133,
+          "stallByVersion": {
+            "v2": {
+              "sites": 38,
+              "stalls": 494
+            },
+            "v3": {
+              "sites": 68,
+              "stalls": 957
+            },
+            "v4": {
+              "sites": 119,
+              "stalls": 1626
+            }
+          },
+          "versionMixed": 27,
+          "versionUnknown": 3,
+          "plugTypes": {
+            "ccs2": 196,
+            "type2": 38,
+            "multi": 38
+          }
         },
         {
           "name": "丹麦",
           "open": 52,
           "total": 53,
           "openStalls": 898,
-          "totalStalls": 904
+          "totalStalls": 904,
+          "stallByVersion": {
+            "v2": {
+              "sites": 7,
+              "stalls": 74
+            },
+            "v3": {
+              "sites": 17,
+              "stalls": 340
+            },
+            "v4": {
+              "sites": 30,
+              "stalls": 484
+            }
+          },
+          "versionMixed": 5,
+          "versionUnknown": 3,
+          "plugTypes": {
+            "ccs2": 49,
+            "type2": 7,
+            "multi": 7
+          }
         },
         {
           "name": "瑞士",
           "open": 46,
           "total": 47,
           "openStalls": 528,
-          "totalStalls": 548
+          "totalStalls": 548,
+          "stallByVersion": {
+            "v2": {
+              "sites": 18,
+              "stalls": 198
+            },
+            "v3": {
+              "sites": 14,
+              "stalls": 191
+            },
+            "v4": {
+              "sites": 13,
+              "stalls": 139
+            }
+          },
+          "versionMixed": 0,
+          "versionUnknown": 1,
+          "plugTypes": {
+            "ccs2": 45,
+            "type2": 18,
+            "multi": 18
+          }
         },
         {
           "name": "比利时",
           "open": 29,
           "total": 30,
           "openStalls": 450,
-          "totalStalls": 458
+          "totalStalls": 458,
+          "stallByVersion": {
+            "v2": {
+              "sites": 9,
+              "stalls": 94
+            },
+            "v3": {
+              "sites": 13,
+              "stalls": 135
+            },
+            "v4": {
+              "sites": 16,
+              "stalls": 221
+            }
+          },
+          "versionMixed": 9,
+          "versionUnknown": 0,
+          "plugTypes": {
+            "ccs2": 29,
+            "type2": 9,
+            "multi": 9
+          }
         },
         {
           "name": "法国",
           "open": 317,
           "total": 329,
           "openStalls": 4458,
-          "totalStalls": 4575
+          "totalStalls": 4575,
+          "stallByVersion": {
+            "v2": {
+              "sites": 36,
+              "stalls": 280
+            },
+            "v3": {
+              "sites": 85,
+              "stalls": 1338
+            },
+            "v4": {
+              "sites": 220,
+              "stalls": 2840
+            }
+          },
+          "versionMixed": 34,
+          "versionUnknown": 11,
+          "plugTypes": {
+            "ccs2": 306,
+            "type2": 36,
+            "multi": 36
+          }
         },
         {
           "name": "西班牙",
           "open": 138,
           "total": 144,
           "openStalls": 1468,
-          "totalStalls": 1512
+          "totalStalls": 1512,
+          "stallByVersion": {
+            "v2": {
+              "sites": 12,
+              "stalls": 77
+            },
+            "v3": {
+              "sites": 29,
+              "stalls": 274
+            },
+            "v4": {
+              "sites": 109,
+              "stalls": 1117
+            }
+          },
+          "versionMixed": 15,
+          "versionUnknown": 3,
+          "plugTypes": {
+            "ccs2": 135,
+            "type2": 12,
+            "multi": 12
+          }
         },
         {
           "name": "意大利",
           "open": 135,
           "total": 146,
           "openStalls": 1414,
-          "totalStalls": 1552
+          "totalStalls": 1552,
+          "stallByVersion": {
+            "v2": {
+              "sites": 16,
+              "stalls": 134
+            },
+            "v3": {
+              "sites": 43,
+              "stalls": 410
+            },
+            "v4": {
+              "sites": 92,
+              "stalls": 870
+            }
+          },
+          "versionMixed": 25,
+          "versionUnknown": 9,
+          "plugTypes": {
+            "ccs2": 126,
+            "type2": 15,
+            "multi": 15
+          }
         },
         {
           "name": "芬兰",
           "open": 55,
           "total": 61,
           "openStalls": 458,
-          "totalStalls": 494
+          "totalStalls": 494,
+          "stallByVersion": {
+            "v2": {
+              "sites": 1,
+              "stalls": 8
+            },
+            "v3": {
+              "sites": 21,
+              "stalls": 180
+            },
+            "v4": {
+              "sites": 34,
+              "stalls": 270
+            }
+          },
+          "versionMixed": 5,
+          "versionUnknown": 4,
+          "plugTypes": {
+            "ccs2": 51,
+            "type2": 1,
+            "multi": 1
+          }
         },
         {
           "name": "爱尔兰",
           "open": 22,
           "total": 25,
           "openStalls": 164,
-          "totalStalls": 186
+          "totalStalls": 186,
+          "stallByVersion": {
+            "v2": {
+              "sites": 1,
+              "stalls": 8
+            },
+            "v3": {
+              "sites": 4,
+              "stalls": 22
+            },
+            "v4": {
+              "sites": 16,
+              "stalls": 134
+            }
+          },
+          "versionMixed": 1,
+          "versionUnknown": 2,
+          "plugTypes": {
+            "ccs2": 20,
+            "type2": 1,
+            "multi": 1
+          }
         },
         {
           "name": "克罗地亚",
           "open": 22,
           "total": 27,
           "openStalls": 166,
-          "totalStalls": 200
+          "totalStalls": 200,
+          "stallByVersion": {
+            "v2": {
+              "sites": 1,
+              "stalls": 6
+            },
+            "v3": {
+              "sites": 0,
+              "stalls": 0
+            },
+            "v4": {
+              "sites": 21,
+              "stalls": 160
+            }
+          },
+          "versionMixed": 0,
+          "versionUnknown": 0,
+          "plugTypes": {
+            "ccs2": 22,
+            "type2": 1,
+            "multi": 1
+          }
         },
         {
           "name": "波兰",
           "open": 26,
           "total": 35,
           "openStalls": 291,
-          "totalStalls": 345
+          "totalStalls": 345,
+          "stallByVersion": {
+            "v2": {
+              "sites": 0,
+              "stalls": 0
+            },
+            "v3": {
+              "sites": 1,
+              "stalls": 16
+            },
+            "v4": {
+              "sites": 22,
+              "stalls": 275
+            }
+          },
+          "versionMixed": 0,
+          "versionUnknown": 3,
+          "plugTypes": {
+            "ccs2": 23
+          }
         },
         {
           "name": "斯洛文尼亚",
           "open": 8,
           "total": 11,
           "openStalls": 84,
-          "totalStalls": 106
+          "totalStalls": 106,
+          "stallByVersion": {
+            "v2": {
+              "sites": 0,
+              "stalls": 0
+            },
+            "v3": {
+              "sites": 2,
+              "stalls": 16
+            },
+            "v4": {
+              "sites": 6,
+              "stalls": 68
+            }
+          },
+          "versionMixed": 0,
+          "versionUnknown": 0,
+          "plugTypes": {
+            "ccs2": 8
+          }
         },
         {
           "name": "英国",
           "open": 219,
           "total": 321,
           "openStalls": 2022,
-          "totalStalls": 3242
+          "totalStalls": 3242,
+          "stallByVersion": {
+            "v2": {
+              "sites": 14,
+              "stalls": 123
+            },
+            "v3": {
+              "sites": 33,
+              "stalls": 339
+            },
+            "v4": {
+              "sites": 164,
+              "stalls": 1544
+            }
+          },
+          "versionMixed": 4,
+          "versionUnknown": 12,
+          "plugTypes": {
+            "ccs2": 208,
+            "type2": 14,
+            "multi": 14
+          }
         },
         {
           "name": "希腊",
           "open": 5,
           "total": 9,
           "openStalls": 36,
-          "totalStalls": 52
+          "totalStalls": 52,
+          "stallByVersion": {
+            "v2": {
+              "sites": 1,
+              "stalls": 6
+            },
+            "v3": {
+              "sites": 1,
+              "stalls": 8
+            },
+            "v4": {
+              "sites": 3,
+              "stalls": 22
+            }
+          },
+          "versionMixed": 0,
+          "versionUnknown": 0,
+          "plugTypes": {
+            "ccs2": 5,
+            "type2": 1,
+            "multi": 1
+          }
         },
         {
           "name": "以色列",
           "open": 1,
           "total": 26,
           "openStalls": 8,
-          "totalStalls": 230
+          "totalStalls": 230,
+          "stallByVersion": {
+            "v2": {
+              "sites": 0,
+              "stalls": 0
+            },
+            "v3": {
+              "sites": 1,
+              "stalls": 8
+            },
+            "v4": {
+              "sites": 0,
+              "stalls": 0
+            }
+          },
+          "versionMixed": 0,
+          "versionUnknown": 0,
+          "plugTypes": {
+            "ccs2": 1
+          }
         },
         {
           "name": "保加利亚",
@@ -682,42 +1352,166 @@ const REPORT_DATA = {
           "open": 30,
           "total": 36,
           "openStalls": 170,
-          "totalStalls": 196
+          "totalStalls": 196,
+          "stallByVersion": {
+            "v2": {
+              "sites": 10,
+              "stalls": 46
+            },
+            "v3": {
+              "sites": 15,
+              "stalls": 91
+            },
+            "v4": {
+              "sites": 5,
+              "stalls": 33
+            }
+          },
+          "versionMixed": 0,
+          "versionUnknown": 0,
+          "plugTypes": {
+            "ccs2": 30,
+            "type2": 10,
+            "multi": 10
+          }
         },
         {
           "name": "韩国",
           "open": 159,
           "total": 211,
           "openStalls": 1042,
-          "totalStalls": 1385
+          "totalStalls": 1385,
+          "stallByVersion": {
+            "v2": {
+              "sites": 1,
+              "stalls": 4
+            },
+            "v3": {
+              "sites": 116,
+              "stalls": 799
+            },
+            "v4": {
+              "sites": 42,
+              "stalls": 227
+            }
+          },
+          "versionMixed": 2,
+          "versionUnknown": 2,
+          "plugTypes": {
+            "ccs1": 158,
+            "multi": 158,
+            "tpc": 110,
+            "nacs": 48
+          }
         },
         {
           "name": "澳大利亚",
           "open": 123,
           "total": 187,
           "openStalls": 872,
-          "totalStalls": 1318
+          "totalStalls": 1318,
+          "stallByVersion": {
+            "v2": {
+              "sites": 13,
+              "stalls": 64
+            },
+            "v3": {
+              "sites": 42,
+              "stalls": 261
+            },
+            "v4": {
+              "sites": 68,
+              "stalls": 547
+            }
+          },
+          "versionMixed": 1,
+          "versionUnknown": 1,
+          "plugTypes": {
+            "ccs2": 122,
+            "type2": 13,
+            "multi": 13
+          }
         },
         {
           "name": "印度",
           "open": 6,
           "total": 10,
           "openStalls": 20,
-          "totalStalls": 36
+          "totalStalls": 36,
+          "stallByVersion": {
+            "v2": {
+              "sites": 0,
+              "stalls": 0
+            },
+            "v3": {
+              "sites": 0,
+              "stalls": 0
+            },
+            "v4": {
+              "sites": 5,
+              "stalls": 20
+            }
+          },
+          "versionMixed": 0,
+          "versionUnknown": 1,
+          "plugTypes": {
+            "ccs2": 5
+          }
         },
         {
           "name": "中国",
           "open": 1139,
           "total": 2824,
           "openStalls": 5492,
-          "totalStalls": 13733
+          "totalStalls": 13733,
+          "stallByVersion": {
+            "v2": {
+              "sites": 594,
+              "stalls": 3576
+            },
+            "v3": {
+              "sites": 14,
+              "stalls": 69
+            },
+            "v4": {
+              "sites": 534,
+              "stalls": 1839
+            }
+          },
+          "versionMixed": 5,
+          "versionUnknown": 2,
+          "plugTypes": {
+            "gbt": 1118,
+            "ccs2": 21,
+            "other": 1,
+            "multi": 1
+          }
         },
         {
           "name": "马来西亚",
           "open": 4,
           "total": 30,
           "openStalls": 22,
-          "totalStalls": 126
+          "totalStalls": 126,
+          "stallByVersion": {
+            "v2": {
+              "sites": 0,
+              "stalls": 0
+            },
+            "v3": {
+              "sites": 2,
+              "stalls": 14
+            },
+            "v4": {
+              "sites": 2,
+              "stalls": 8
+            }
+          },
+          "versionMixed": 0,
+          "versionUnknown": 0,
+          "plugTypes": {
+            "ccs2": 4
+          }
         },
         {
           "name": "台湾地区",
@@ -725,14 +1519,55 @@ const REPORT_DATA = {
           "total": 141,
           "openStalls": 125,
           "totalStalls": 807,
-          "isRegion": true
+          "isRegion": true,
+          "stallByVersion": {
+            "v2": {
+              "sites": 0,
+              "stalls": 0
+            },
+            "v3": {
+              "sites": 16,
+              "stalls": 119
+            },
+            "v4": {
+              "sites": 1,
+              "stalls": 6
+            }
+          },
+          "versionMixed": 0,
+          "versionUnknown": 1,
+          "plugTypes": {
+            "tpc": 16,
+            "ccs2": 16,
+            "other": 1,
+            "multi": 1
+          }
         },
         {
           "name": "新加坡",
           "open": 1,
           "total": 22,
           "openStalls": 4,
-          "totalStalls": 66
+          "totalStalls": 66,
+          "stallByVersion": {
+            "v2": {
+              "sites": 0,
+              "stalls": 0
+            },
+            "v3": {
+              "sites": 0,
+              "stalls": 0
+            },
+            "v4": {
+              "sites": 1,
+              "stalls": 4
+            }
+          },
+          "versionMixed": 0,
+          "versionUnknown": 0,
+          "plugTypes": {
+            "ccs2": 1
+          }
         },
         {
           "name": "日本",
@@ -1011,7 +1846,29 @@ function renderMain() {
             html += `<tr class="detail-expand-row${isExpanded?' expanded':''}" data-country-detail="${c.name}"><td colspan="6"><div class="detail-expand-content"><h4>${c.name}${c.isRegion?'（地区）':''}</h4>`;
             html += `<div class="detail-field"><span class="detail-label">开放站点：</span>${fmt(c.open)} / ${fmt(c.total)}</div>`;
             html += `<div class="detail-field"><span class="detail-label">开放充电枪：</span>${fmt(c.openStalls)} / ${fmt(c.totalStalls)}</div>`;
-            html += `<div class="detail-field"><span class="detail-label">开放率：</span>${pct.toFixed(1)}%</div></div></td></tr>`;
+            html += `<div class="detail-field"><span class="detail-label">开放率：</span>${pct.toFixed(1)}%</div>`;
+            if (c.stallByVersion && c.open > 0) {
+                const vb = c.stallByVersion;
+                const vt = (vb.v2?vb.v2.stalls:0) + (vb.v3?vb.v3.stalls:0) + (vb.v4?vb.v4.stalls:0);
+                const VC = {v2:'#6a6a8a', v3:'#00d2d3', v4:'#e84118'};
+                html += `<div class="version-block"><div class="version-title">硬件代际（开放站点）</div>`;
+                ['v2','v3','v4'].forEach(v => {
+                    const d = vb[v] || {sites:0, stalls:0};
+                    const sh = vt>0 ? d.stalls/vt*100 : 0;
+                    html += `<div class="version-row"><span class="vlabel">${v.toUpperCase()}</span><span class="vnum">${fmt(d.sites)} 站</span><span class="vnum">${fmt(d.stalls)} 桩</span><div class="vbar"><span style="width:${sh.toFixed(1)}%;background:${VC[v]}"></span></div><span class="vshare">${sh.toFixed(1)}%</span></div>`;
+                });
+                const nt = [];
+                if (c.versionMixed > 0) nt.push(`含混合站 ${c.versionMixed} 个`);
+                if (c.versionUnknown > 0) nt.push(`另有 ${fmt(c.versionUnknown)} 站桩规格待定`);
+                if (nt.length) html += `<div class="version-note">${nt.join('，')}</div>`;
+                html += `</div>`;
+            }
+            if (c.plugTypes && c.open > 0) {
+                const PN = {gbt:'GBT', ccs2:'CCS2', ccs1:'CCS1', nacs:'NACS', type2:'Type2', tpc:'TPC', multi:'多接口', other:'其他'};
+                const parts = Object.entries(c.plugTypes).sort((a,b)=>b[1]-a[1]).slice(0,3).map(([k,v]) => `${PN[k]||k} ${fmt(v)} 站`);
+                if (parts.length) html += `<div class="detail-field plug-field"><span class="detail-label">接口类型：</span>${parts.join(' · ')}</div>`;
+            }
+            html += `</div></td></tr>`;
         });
         html += `</tbody></table></div>`;
     });
