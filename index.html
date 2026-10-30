@@ -191,7 +191,12 @@ body {
 .detail-expand-content .gen-note { color: #55556a; font-size: 11.5px; margin-top: 8px; line-height: 1.6; max-width: 900px; }
 @media (max-width: 900px) { .detail-expand-content .gen-table { font-size: 11.5px; } .detail-expand-content .gen-table th, .detail-expand-content .gen-table td { padding: 4px 6px; } .detail-expand-content .gen-table .gp { font-size: 11px; } }
 @media (max-width: 760px) { .detail-expand-content .gen-table { font-size: 10.5px; } .detail-expand-content .gen-table th, .detail-expand-content .gen-table td { padding: 4px 4px; } .detail-expand-content .gen-table .gp { font-size: 10px; } }
-.detail-expand-content .plug-field { margin-top: 12px; }
+.detail-expand-content .plug-field { margin-top: 14px; }
+.detail-expand-content .plug-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 7px; }
+.detail-expand-content .plug-chip { display: inline-flex; align-items: baseline; gap: 5px; padding: 3px 9px; background: #1a1a2a; border: 1px solid #262636; border-radius: 6px; font-size: 12px; color: #9a9ab8; white-space: nowrap; line-height: 1.5; }
+.detail-expand-content .plug-chip b { color: #e0e0f0; font-weight: 600; font-variant-numeric: tabular-nums; }
+[data-theme="light"] .detail-expand-content .plug-chip { background: #f5f6f8; border-color: #e2e5ea; color: #6b7280; }
+[data-theme="light"] .detail-expand-content .plug-chip b { color: #111827; }
 .search-bar { margin-bottom: 24px; display: flex; justify-content: center; }
 .search-input { width: 100%; max-width: 480px; padding: 12px 20px 12px 44px; background: #141420; border: 1px solid #1e1e30; border-radius: 12px; color: #fff; font-size: 15px; outline: none; transition: border-color 0.2s, box-shadow 0.2s; }
 .search-input:focus { border-color: #54a0ff; box-shadow: 0 0 0 3px rgba(84, 160, 255, 0.15); }
@@ -230,6 +235,11 @@ body {
     .sub-tooltip { width: 300px; left: 0; transform: none; }
 }
 @media (max-width: 480px) {
+    .detail-expand-content { padding: 14px 10px 16px; margin: 0 6px 8px; }
+    .detail-expand-content .detail-field { font-size: 11.5px; }
+    .detail-expand-content h4 { font-size: 14px; }
+    .detail-expand-content .plug-chips { gap: 4px; margin-top: 6px; }
+    .detail-expand-content .plug-chip { padding: 2px 7px; font-size: 11px; }
     .sub-tooltip { width: 240px; }
     .stats-row { grid-template-columns: 1fr 1fr; }
     .stat-card { padding: 14px 6px; }
@@ -539,8 +549,8 @@ function renderMain() {
             }
             if (c.plugTypes && c.open > 0) {
                 const PN = {gbt:'GBT', ccs2:'CCS2', ccs1:'CCS1', nacs:'NACS', type2:'Type2', tpc:'TPC', multi:'多接口', other:'其他'};
-                const parts = Object.entries(c.plugTypes).sort((a,b)=>b[1]-a[1]).slice(0,3).map(([k,v]) => `${PN[k]||k} ${fmt(v)} 站`);
-                if (parts.length) html += `<div class="detail-field plug-field"><span class="detail-label">接口类型：</span>${parts.join(' · ')}</div>`;
+                const parts = Object.entries(c.plugTypes).sort((a,b)=>b[1]-a[1]).slice(0,3).map(([k,v]) => `<span class="plug-chip">${PN[k]||k}<b>${fmt(v)}</b></span>`);
+                if (parts.length) html += `<div class="detail-field plug-field"><span class="detail-label">接口类型</span><div class="plug-chips">${parts.join('')}</div></div>`;
             }
             html += `</div></td></tr>`;
         });
