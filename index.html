@@ -597,9 +597,10 @@ function renderMain() {
                 html += `<tr class="gsum"><td class="gk">合计</td><td>${fmt(c.total)}</td><td>${fmt(c.totalStalls)}</td><td>${fmt(c.open)}</td><td>${fmt(c.openStalls)}</td><td class="gp gsep">100%</td><td class="gp">${tO>0?'100%':'—'}</td><td class="gp">${pct.toFixed(1)}%</td><td class="gp">${srrT.toFixed(1)}%</td></tr>`;
                 html += `</tbody></table>`;
                 const nt=[];
-                if (c.gen.nb>0) nt.push(`未建成（0 桩）${fmt(c.gen.nb)} 站${c.gen.onb>0?`，其中 ${fmt(c.gen.onb)} 站已计划对外开放`:''}`);
-                nt.push(`站点数含混合站（同站多代际）会重复计数；桩占比按该国总量计，开放率按该代际自身计`);
-                html += `<div class="gen-note">${nt.join('；')}</div></div>`;
+                if (c.gen.nb>0) nt.push(`未建成（0 桩）${fmt(c.gen.nb)} 站${c.gen.onb>0?`，其中 ${fmt(c.gen.onb)} 站已计划开放`:''}`);
+                nt.push(`0 桩站不计入任何代际，混合站（同站多代际）在多行重复计数，故各行站点数相加与合计不等；桩数为实际物理桩，无重复`);
+                nt.push(`桩占比按该国总量计，开放率按该代际自身计`);
+                html += `<div class="gen-note">${nt.join('<br>')}</div></div>`;
             }
             if (c.plugTypes && Object.keys(c.plugTypes).length) {
                 const PN = {gbt:'GBT', ccs2:'CCS2', ccs1:'CCS1', nacs:'NACS', type2:'Type2', tpc:'TPC', multi:'多接口', other:'其他'};
