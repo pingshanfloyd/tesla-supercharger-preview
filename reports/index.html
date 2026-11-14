@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>月度报告归档 | 特斯拉超充站全球追踪</title>
+<meta name="description" content="特斯拉超充站全球追踪的月度报告归档，每月一期，含全球站点数、开放率、区域对比与国家排名。数据来源 supercharge.info，口径与主站一致。">
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://tesla.gann.ing/reports/">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<meta property="og:type" content="website">
+<meta property="og:title" content="月度报告归档 | 特斯拉超充站全球追踪">
+<meta property="og:description" content="每月一期的特斯拉超充站开放情况总结，含全球站点数、开放率、区域对比。">
+<meta property="og:url" content="https://tesla.gann.ing/reports/">
+<meta property="og:image" content="https://tesla.gann.ing/og-image.png">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"CollectionPage","name":"月度报告归档","url":"https://tesla.gann.ing/reports/","description":"特斯拉超充站全球追踪的月度报告归档","isPartOf":{"@type":"WebSite","name":"tesla.gann.ing","url":"https://tesla.gann.ing/"},"mainEntity":{"@type":"ItemList","numberOfItems":1,"itemListElement":[{"@type":"ListItem","position":1,"name":"2026年11月特斯拉超充站开放情况","url":"https://tesla.gann.ing/reports/202611.html"}]}}
+</script>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;
+  background:#0a0a0f; color:#c8c8d8; line-height:1.7; -webkit-text-size-adjust:100%; }
+.wrap { max-width:1000px; margin:0 auto; padding:32px 20px 72px; }
+nav.crumb { font-size:13px; color:#8a8aa8; margin-bottom:28px; }
+nav.crumb a { color:#54a0ff; text-decoration:none; }
+nav.crumb a:hover { text-decoration:underline; }
+.page-head { margin-bottom:32px; padding-bottom:22px; border-bottom:1px solid #1e1e30; }
+h1 { font-size:28px; color:#fff; font-weight:700; margin-bottom:10px; letter-spacing:-0.3px; }
+.sub { font-size:14px; color:#8a8aa8; }
+.sub b { color:#c8c8d8; font-weight:600; }
+.grid { display:grid; grid-template-columns:repeat(2,1fr); gap:18px; }
+.card { display:block; background:#141420; border:1px solid #1e1e30; border-radius:14px;
+  overflow:hidden; text-decoration:none; color:inherit; transition:border-color .18s, transform .18s, box-shadow .18s; }
+.card.linkable:hover { border-color:#2f2f4a; transform:translateY(-2px); box-shadow:0 8px 24px rgba(0,0,0,.35); }
+.chart { padding:18px 20px 16px; background:linear-gradient(180deg,#171728 0%,#141420 100%); }
+.ctitle { font-size:10.5px; color:#6a6a8a; letter-spacing:.5px; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center; }
+.ctitle em { font-style:normal; color:#5a5a7a; font-size:10px; }
+.brow { display:flex; align-items:center; gap:9px; margin-bottom:9px; }
+.brow:last-child { margin-bottom:0; }
+.blab { width:44px; flex:none; font-size:11.5px; color:#9a9ab8; }
+.btrack { flex:1; height:8px; background:#26263c; border-radius:4px; position:relative; }
+.c-eu { background:#00d2d3; } .c-am { background:#54a0ff; }
+.c-ap { background:#ff9f43; } .c-me { background:#8a8aa8; }
+.bfill { display:block; height:100%; border-radius:4px; min-width:2px; position:relative; z-index:1; }
+.bref { position:absolute; top:-2px; bottom:-2px; width:1px; background:rgba(255,255,255,.28); z-index:2; }
+.bval { width:42px; flex:none; text-align:right; font-size:11.5px; font-weight:600;
+  color:#c8c8d8; font-variant-numeric:tabular-nums; }
+.body { padding:15px 18px 17px; border-top:1px solid #1e1e30; }
+.head { display:flex; align-items:center; gap:8px; margin-bottom:9px; }
+.head h2 { font-size:15px; color:#fff; font-weight:600; }
+.tag { font-size:11px; color:#8a8aa8; background:#1e1e30; padding:2px 8px; border-radius:20px; }
+.nums { display:flex; align-items:baseline; gap:4px; margin-bottom:12px; flex-wrap:wrap; }
+.big { font-size:25px; font-weight:700; color:#fff; font-variant-numeric:tabular-nums; letter-spacing:-0.5px; }
+.unit { font-size:13px; color:#8a8aa8; margin-right:4px; }
+.dot { color:#3a3a55; margin:0 3px; }
+.cnt { font-size:12.5px; color:#8a8aa8; font-variant-numeric:tabular-nums; }
+.foot { display:flex; align-items:center; justify-content:space-between; gap:10px; font-size:12.5px; }
+.delta { font-variant-numeric:tabular-nums; }
+.delta.up { color:#00d2d3; } .delta.flat { color:#8a8aa8; } .delta.down { color:#ff9f43; }
+.go { color:#54a0ff; }
+.go.disabled { color:#5a5a7a; }
+footer { margin-top:44px; padding-top:22px; border-top:1px solid #1e1e30; font-size:12px; color:#8a8aa8; }
+footer a { color:#8a8aa8; }
+@media (max-width:760px) {
+  .grid { grid-template-columns:1fr; }
+  h1 { font-size:23px; }
+  .wrap { padding:20px 16px 56px; }
+}
+@media (prefers-color-scheme: light) {
+  body { background:#f7f8fa; color:#3a3a4a; }
+  h1, .head h2, .big { color:#141420; }
+  .page-head, .body, footer { border-color:#e4e7ec; }
+  .card { background:#fff; border-color:#e4e7ec; }
+  .chart { background:linear-gradient(180deg,#f4f6fa 0%,#fff 100%); }
+  .ctitle { color:#5f6673; }
+  .ctitle em { color:#5f6673; }
+  .blab { color:#5a6070; }
+  .btrack { background:#e8ebf0; }
+  .bref { background:rgba(0,0,0,.22); }
+  .c-eu { background:#00999a; } .c-am { background:#2e7dd6; }
+  .c-ap { background:#c96f12; } .c-me { background:#6b7280; }
+  .bval { color:#141420; }
+  .tag { background:#eef0f3; color:#6b7280; }
+  .sub, .unit, .cnt, .dot { color:#6b7280; }
+  footer, footer a, nav.crumb { color:#6b7280; }
+  .delta.up { color:#00807f; }
+  .delta.down { color:#a8560a; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="crumb"><a href="../">← 返回主报告</a></nav>
+<div class="page-head">
+  <h1>月度报告归档</h1>
+  <p class="sub">每月一期，共 <b>4</b> 期 · 数据来源 supercharge.info · 统计口径与主站一致</p>
+</div>
+<div class="grid">
+  <a class="card linkable" href="202611.html">
+    <div class="chart">
+      <div class="ctitle"><span>区域开放率</span><em>竖线 = 全球 65.5%</em></div>
+      <div class="brow">
+        <span class="blab">欧洲</span>
+        <span class="btrack"><i class="bref" style="left:65.5%"></i><i class="bfill c-eu" style="width:91.2%"></i></span>
+        <span class="bval">91.2%</span>
+      </div>
+      <div class="brow">
+        <span class="blab">美洲</span>
+        <span class="btrack"><i class="bref" style="left:65.5%"></i><i class="bfill c-am" style="width:73.5%"></i></span>
+        <span class="bval">73.5%</span>
+      </div>
+      <div class="brow">
+        <span class="blab">亚太</span>
+        <span class="btrack"><i class="bref" style="left:65.5%"></i><i class="bfill c-ap" style="width:40.2%"></i></span>
+        <span class="bval">40.2%</span>
+      </div>
+      <div class="brow">
+        <span class="blab">中东非</span>
+        <span class="btrack"><i class="bref" style="left:65.5%"></i><i class="bfill c-me" style="width:0.0%"></i></span>
+        <span class="bval">0.0%</span>
+      </div>
+    </div>
+    <div class="body">
+      <div class="head"><h2>2026年11月</h2></div>
+      <div class="nums"><span class="big">10,879</span><span class="unit">站</span><span class="dot">·</span><span class="cnt">58 国/地区</span><span class="dot">·</span><span class="cnt">全球 65.5%</span></div>
+      <div class="foot"><span class="delta flat">+0.0pt 较上月</span><span class="go">查看报告 →</span></div>
+    </div>
+  </a><div class="card">
+    <div class="chart">
+      <div class="ctitle"><span>区域开放率</span><em>竖线 = 全球 65.5%</em></div>
+      <div class="brow">
+        <span class="blab">欧洲</span>
+        <span class="btrack"><i class="bref" style="left:65.5%"></i><i class="bfill c-eu" style="width:91.2%"></i></span>
+        <span class="bval">91.2%</span>
+      </div>
+      <div class="brow">
+        <span class="blab">美洲</span>
+        <span class="btrack"><i class="bref" style="left:65.5%"></i><i class="bfill c-am" style="width:73.5%"></i></span>
+        <span class="bval">73.5%</span>
+      </div>
+      <div class="brow">
+        <span class="blab">亚太</span>
+        <span class="btrack"><i class="bref" style="left:65.5%"></i><i class="bfill c-ap" style="width:40.1%"></i></span>
+        <span class="bval">40.1%</span>
+      </div>
+      <div class="brow">
+        <span class="blab">中东非</span>
+        <span class="btrack"><i class="bref" style="left:65.5%"></i><i class="bfill c-me" style="width:0.0%"></i></span>
+        <span class="bval">0.0%</span>
+      </div>
+    </div>
+    <div class="body">
+      <div class="head"><h2>2026年10月</h2><span class="tag">仅摘要</span></div>
+      <div class="nums"><span class="big">10,873</span><span class="unit">站</span><span class="dot">·</span><span class="cnt">56 国/地区</span><span class="dot">·</span><span class="cnt">全球 65.5%</span></div>
+      <div class="foot"><span class="delta up">+1.5pt 较上月</span><span class="go disabled">博文待补</span></div>
+    </div>
+  </div><div class="card">
+    <div class="chart">
+      <div class="ctitle"><span>区域开放率</span><em>竖线 = 全球 64.0%</em></div>
+      <div class="brow">
+        <span class="blab">欧洲</span>
+        <span class="btrack"><i class="bref" style="left:64.0%"></i><i class="bfill c-eu" style="width:91.0%"></i></span>
+        <span class="bval">91.0%</span>
+      </div>
+      <div class="brow">
+        <span class="blab">美洲</span>
+        <span class="btrack"><i class="bref" style="left:64.0%"></i><i class="bfill c-am" style="width:71.4%"></i></span>
+        <span class="bval">71.4%</span>
+      </div>
+      <div class="brow">
+        <span class="blab">亚太</span>
+        <span class="btrack"><i class="bref" style="left:64.0%"></i><i class="bfill c-ap" style="width:38.9%"></i></span>
+        <span class="bval">38.9%</span>
+      </div>
+      <div class="brow">
+        <span class="blab">中东非</span>
+        <span class="btrack"><i class="bref" style="left:64.0%"></i><i class="bfill c-me" style="width:0.0%"></i></span>
+        <span class="bval">0.0%</span>
+      </div>
+    </div>
+    <div class="body">
+      <div class="head"><h2>2026年9月</h2><span class="tag">仅摘要</span></div>
+      <div class="nums"><span class="big">10,521</span><span class="unit">站</span><span class="dot">·</span><span class="cnt">55 国/地区</span><span class="dot">·</span><span class="cnt">全球 64.0%</span></div>
+      <div class="foot"><span class="delta up">+0.5pt 较上月</span><span class="go disabled">博文待补</span></div>
+    </div>
+  </div><div class="card">
+    <div class="chart">
+      <div class="ctitle"><span>区域开放率</span><em>竖线 = 全球 63.5%</em></div>
+      <div class="brow">
+        <span class="blab">欧洲</span>
+        <span class="btrack"><i class="bref" style="left:63.5%"></i><i class="bfill c-eu" style="width:90.9%"></i></span>
+        <span class="bval">90.9%</span>
+      </div>
+      <div class="brow">
+        <span class="blab">美洲</span>
+        <span class="btrack"><i class="bref" style="left:63.5%"></i><i class="bfill c-am" style="width:70.5%"></i></span>
+        <span class="bval">70.5%</span>
+      </div>
+      <div class="brow">
+        <span class="blab">亚太</span>
+        <span class="btrack"><i class="bref" style="left:63.5%"></i><i class="bfill c-ap" style="width:38.8%"></i></span>
+        <span class="bval">38.8%</span>
+      </div>
+      <div class="brow">
+        <span class="blab">中东非</span>
+        <span class="btrack"><i class="bref" style="left:63.5%"></i><i class="bfill c-me" style="width:0.0%"></i></span>
+        <span class="bval">0.0%</span>
+      </div>
+    </div>
+    <div class="body">
+      <div class="head"><h2>2026年8月</h2><span class="tag">仅摘要</span></div>
+      <div class="nums"><span class="big">10,421</span><span class="unit">站</span><span class="dot">·</span><span class="cnt">55 国/地区</span><span class="dot">·</span><span class="cnt">全球 63.5%</span></div>
+      <div class="foot"><span class="delta flat">首期归档</span><span class="go disabled">博文待补</span></div>
+    </div>
+  </div>
+</div>
+<footer>tesla.gann.ing · 数据每月更新 · <a href="../">查看最新交互式报告</a></footer>
+</div>
+</body>
+</html>
