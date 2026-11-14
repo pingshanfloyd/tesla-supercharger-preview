@@ -284,13 +284,29 @@ body {
 .data-table th.sortable:hover { color: #fff; }
 .data-table th.sortable.sort-active { color: #54a0ff; }
 .data-table th .sort-arrow { font-size: 12px; margin-left: 4px; display: inline; }
-.reports-entry { background: #141420; border: 1px solid #1e1e30; border-radius: 12px; margin-bottom: 20px; padding: 20px 24px; }
-.reports-entry .re-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
-.reports-entry h3 { color: #fff; font-size: 16px; }
-.reports-entry .re-count { font-size: 12px; color: #8a8aa8; background: #1e1e30; padding: 2px 8px; border-radius: 20px; font-variant-numeric: tabular-nums; }
-.reports-entry .re-desc { font-size: 13px; color: #8a8aa8; margin-bottom: 14px; }
-.reports-entry .re-link { display: inline-block; font-size: 14px; color: #54a0ff; text-decoration: none; }
-.reports-entry .re-link:hover { text-decoration: underline; }
+/* 月度报告 CTA（banner 内） */
+.reports-cta {
+    display: flex; align-items: center; justify-content: center; gap: 7px;
+    width: fit-content; margin: 18px auto 0;
+    padding: 9px 18px; border-radius: 24px;
+    background: rgba(84, 160, 255, 0.09);
+    border: 1px solid rgba(84, 160, 255, 0.22);
+    color: #8ab8ff; font-size: 13.5px; font-weight: 500;
+    text-decoration: none; transition: background .18s, border-color .18s, transform .18s;
+}
+.reports-cta:hover {
+    background: rgba(84, 160, 255, 0.17);
+    border-color: rgba(84, 160, 255, 0.45);
+    transform: translateY(-1px);
+}
+.reports-cta svg { width: 15px; height: 15px; opacity: 0.85; }
+.reports-cta .cta-badge {
+    font-size: 11px; font-weight: 600; padding: 1px 7px; border-radius: 20px;
+    background: rgba(84, 160, 255, 0.18); color: #a8ccff;
+    font-variant-numeric: tabular-nums;
+}
+.reports-cta .cta-arrow { opacity: 0.6; transition: transform .18s, opacity .18s; }
+.reports-cta:hover .cta-arrow { opacity: 1; transform: translateX(2px); }
 @media (max-width: 900px) {
     .stats-row { grid-template-columns: repeat(2, 1fr); }
 }
@@ -453,12 +469,18 @@ body {
 [data-theme="light"] .stat-card .value .slash { color: #c0c4cc; }
 [data-theme="light"] .changes-section,
 [data-theme="light"] .region-section,
-[data-theme="light"] .reports-entry { background: #fff; border-color: #e0e4ea; }
+[data-theme="light"] .reports-cta {
+    background: rgba(46, 108, 219, 0.06);
+    border-color: rgba(46, 108, 219, 0.22);
+    color: #2e6cdb;
+}
+[data-theme="light"] .reports-cta:hover {
+    background: rgba(46, 108, 219, 0.13);
+    border-color: rgba(46, 108, 219, 0.45);
+}
+[data-theme="light"] .reports-cta .cta-badge { background: rgba(46, 108, 219, 0.12); color: #1f56b0; }
 [data-theme="light"] .changes-section summary h2,
 [data-theme="light"] .region-header h2,
-[data-theme="light"] .reports-entry h3 { color: #1a1a2e; }
-[data-theme="light"] .reports-entry .re-count { background: #eef0f3; color: #6b7280; }
-[data-theme="light"] .reports-entry .re-desc { color: #6b7280; }
 [data-theme="light"] .changes-section details[open] summary { border-bottom-color: #e0e4ea; }
 [data-theme="light"] .changes-section summary .toggle-hint { color: #6b7280; }
 [data-theme="light"] .change-group-title { color: #6b7280; }
@@ -506,10 +528,10 @@ body {
 [data-theme="light"] .info-icon { background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.12); color: #6b7280; }
 [data-theme="light"] .sub-tooltip::before { border-bottom-color: #e0e4ea; }
 [data-theme="light"] .data-table tr.country-row td .expand-arrow { color: #9ca3af; }
-[data-theme="light"] .reports-entry .re-link { color: #2e6cdb; }
 
 @media (max-width: 768px) {
     .header-tech { padding: 32px 20px 28px; }
+    .reports-cta { margin-top: 15px; padding: 8px 16px; font-size: 13px; }
     .header-tech h1 { font-size: 24px; }
 }
     </style>
@@ -562,6 +584,12 @@ function renderMain() {
                 </div>
             </span>
         </div>
+        <a class="reports-cta" href="reports/">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            <span>月度报告</span>
+            <span class="cta-badge">${(D.archive && D.archive.length) || 0} 期</span>
+            <span class="cta-arrow">→</span>
+        </a>
     </div>
     <div class="stats-row">
         <div class="stat-card"><div class="label">全部站点 · 充电桩</div><div class="value">${fmt(D.totalSites)}<span class="slash">·</span>${fmt(D.totalStalls)}</div></div>
@@ -656,12 +684,6 @@ function renderMain() {
         });
         html += `</tbody></table></div></div>`;
     });
-    const reportCount = (D.archive && D.archive.length) || 0;
-    html += `<div class="reports-entry">
-        <div class="re-head"><h3>📊 月度报告</h3><span class="re-count">${reportCount} 期</span></div>
-        <p class="re-desc">每月一期的数据总结，含全球站点数、开放率、区域对比与国家排名</p>
-        <a class="re-link" href="reports/">查看全部报告 →</a>
-    </div>`;
     html += `<div class="footer">
         <div class="footer-legal">
             <p><strong>独立声明：</strong>tesla.gann.ing 是独立的第三方数据追踪项目，与 Tesla, Inc.（特斯拉公司）及其关联公司不存在任何隶属、授权、认可或赞助关系。“Tesla”“特斯拉”“Supercharger”及相关标识为其各自权利人所有的商标，本站仅为客观说明数据对象而使用。</p>
