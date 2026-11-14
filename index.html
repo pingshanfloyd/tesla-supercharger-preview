@@ -284,13 +284,13 @@ body {
 .data-table th.sortable:hover { color: #fff; }
 .data-table th.sortable.sort-active { color: #54a0ff; }
 .data-table th .sort-arrow { font-size: 12px; margin-left: 4px; display: inline; }
-.archive-section { background: #141420; border: 1px solid #1e1e30; border-radius: 12px; margin-bottom: 20px; overflow: hidden; padding: 20px 24px; }
-.archive-section h3 { color: #fff; font-size: 16px; margin-bottom: 12px; }
-.archive-list { list-style: none; }
-.archive-list li { padding: 6px 0; font-size: 14px; }
-.archive-list li a { color: #54a0ff; text-decoration: none; }
-.archive-list li a:hover { text-decoration: underline; }
-.archive-list .arch-stats { color: #8a8aa8; font-size: 13px; margin-left: 8px; font-variant-numeric: tabular-nums; }
+.reports-entry { background: #141420; border: 1px solid #1e1e30; border-radius: 12px; margin-bottom: 20px; padding: 20px 24px; }
+.reports-entry .re-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.reports-entry h3 { color: #fff; font-size: 16px; }
+.reports-entry .re-count { font-size: 12px; color: #8a8aa8; background: #1e1e30; padding: 2px 8px; border-radius: 20px; font-variant-numeric: tabular-nums; }
+.reports-entry .re-desc { font-size: 13px; color: #8a8aa8; margin-bottom: 14px; }
+.reports-entry .re-link { display: inline-block; font-size: 14px; color: #54a0ff; text-decoration: none; }
+.reports-entry .re-link:hover { text-decoration: underline; }
 @media (max-width: 900px) {
     .stats-row { grid-template-columns: repeat(2, 1fr); }
 }
@@ -453,10 +453,12 @@ body {
 [data-theme="light"] .stat-card .value .slash { color: #c0c4cc; }
 [data-theme="light"] .changes-section,
 [data-theme="light"] .region-section,
-[data-theme="light"] .archive-section { background: #fff; border-color: #e0e4ea; }
+[data-theme="light"] .reports-entry { background: #fff; border-color: #e0e4ea; }
 [data-theme="light"] .changes-section summary h2,
 [data-theme="light"] .region-header h2,
-[data-theme="light"] .archive-section h3 { color: #1a1a2e; }
+[data-theme="light"] .reports-entry h3 { color: #1a1a2e; }
+[data-theme="light"] .reports-entry .re-count { background: #eef0f3; color: #6b7280; }
+[data-theme="light"] .reports-entry .re-desc { color: #6b7280; }
 [data-theme="light"] .changes-section details[open] summary { border-bottom-color: #e0e4ea; }
 [data-theme="light"] .changes-section summary .toggle-hint { color: #6b7280; }
 [data-theme="light"] .change-group-title { color: #6b7280; }
@@ -504,8 +506,8 @@ body {
 [data-theme="light"] .info-icon { background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.12); color: #6b7280; }
 [data-theme="light"] .sub-tooltip::before { border-bottom-color: #e0e4ea; }
 [data-theme="light"] .data-table tr.country-row td .expand-arrow { color: #9ca3af; }
-[data-theme="light"] .archive-list li a { color: #2e6cdb; }
-[data-theme="light"] .archive-list .arch-stats { color: #6b7280; }
+[data-theme="light"] .reports-entry .re-link { color: #2e6cdb; }
+
 @media (max-width: 768px) {
     .header-tech { padding: 32px 20px 28px; }
     .header-tech h1 { font-size: 24px; }
@@ -654,13 +656,12 @@ function renderMain() {
         });
         html += `</tbody></table></div></div>`;
     });
-    if (D.archive && D.archive.length > 0) {
-        html += `<div class="archive-section"><h3>📅 历史数据</h3><ul class="archive-list">`;
-        D.archive.forEach(a => {
-            html += `<li><a href="${a.url}">${a.label}</a><span class="arch-stats">${a.stats}</span></li>`;
-        });
-        html += `</ul></div>`;
-    }
+    const reportCount = (D.archive && D.archive.length) || 0;
+    html += `<div class="reports-entry">
+        <div class="re-head"><h3>📊 月度报告</h3><span class="re-count">${reportCount} 期</span></div>
+        <p class="re-desc">每月一期的数据总结，含全球站点数、开放率、区域对比与国家排名</p>
+        <a class="re-link" href="reports/">查看全部报告 →</a>
+    </div>`;
     html += `<div class="footer">
         <div class="footer-legal">
             <p><strong>独立声明：</strong>tesla.gann.ing 是独立的第三方数据追踪项目，与 Tesla, Inc.（特斯拉公司）及其关联公司不存在任何隶属、授权、认可或赞助关系。“Tesla”“特斯拉”“Supercharger”及相关标识为其各自权利人所有的商标，本站仅为客观说明数据对象而使用。</p>
